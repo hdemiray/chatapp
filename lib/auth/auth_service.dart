@@ -16,7 +16,16 @@ class AuthService {
     }
   }
 
+  //method to sign up
+
   //method to sign out
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
+    }
+  }
 
   //errors
 }
