@@ -3,7 +3,9 @@ import 'package:chatapp/components/user_tile.dart';
 import 'package:chatapp/pages/chat_page.dart';
 import 'package:chatapp/services/auth/auth_service.dart';
 import 'package:chatapp/services/chat/chat_service.dart';
+import 'package:chatapp/themes/theme_provide.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -15,14 +17,38 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Home"),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
+            },
+            icon: Icon(
+              Theme.of(context).brightness == Brightness.dark
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
+            ),
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ],
+        title: Text("Kişiler"),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Theme.of(context).colorScheme.primary,
+        elevation: 0,
       ),
       drawer: const MyDrawer(),
-      body: _buildUserList(),
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(height: 15),
+            Flexible(
+              child: _buildUserList(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -64,6 +90,7 @@ class HomePage extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => ChatPage(
                 recieverEmail: userData["email"],
+                recieverID: userData["uid"],
               ),
             ),
           );

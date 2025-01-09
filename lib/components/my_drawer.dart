@@ -24,7 +24,7 @@ class MyDrawer extends StatelessWidget {
             //logo
             DrawerHeader(
               child: Icon(
-                Icons.message,
+                Icons.heart_broken,
                 size: 40,
                 color: Theme.of(context).colorScheme.primary,
               ),
@@ -36,7 +36,11 @@ class MyDrawer extends StatelessWidget {
               child: ListTile(
                 leading: Icon(Icons.home,
                     color: Theme.of(context).colorScheme.primary),
-                title: const Text("H O M E"),
+                title: Text(
+                  "H O M E",
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                ),
                 onTap: () {
                   Navigator.pop(context);
                 },
@@ -47,9 +51,15 @@ class MyDrawer extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 25),
               child: ListTile(
-                leading: Icon(Icons.settings,
-                    color: Theme.of(context).colorScheme.primary),
-                title: const Text("S E T T I N G S"),
+                leading: Icon(
+                  Icons.settings,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                title: Text(
+                  "S E T T I N G S",
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                ),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return const Settings();
@@ -64,7 +74,9 @@ class MyDrawer extends StatelessWidget {
             child: ListTile(
               leading: Icon(Icons.logout,
                   color: Theme.of(context).colorScheme.primary),
-              title: const Text("L O G O U T"),
+              title: Text("L O G O U T",
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary)),
               onTap: logOut,
             ),
           ),

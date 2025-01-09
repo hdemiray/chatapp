@@ -50,12 +50,12 @@ class RegisterPage extends StatelessWidget {
           children: [
             //logo
             Icon(
-              Icons.message,
-              size: 60,
+              Icons.person_add_rounded,
+              size: 50,
               color: Theme.of(context).colorScheme.primary,
             ),
 
-            const SizedBox(height: 50),
+            const SizedBox(height: 10),
 
             //welcome back message
             Text(
@@ -66,7 +66,7 @@ class RegisterPage extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
 
             //email textfield
             MyTextField(
@@ -92,7 +92,7 @@ class RegisterPage extends StatelessWidget {
               controller: _confirmPwController,
             ),
 
-            const SizedBox(height: 25),
+            const SizedBox(height: 15),
 
             //login button
             MyButton(

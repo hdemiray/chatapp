@@ -48,11 +48,11 @@ class LoginPage extends StatelessWidget {
             //logo
             Icon(
               Icons.message,
-              size: 60,
+              size: 50,
               color: Theme.of(context).colorScheme.primary,
             ),
 
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
 
             //welcome back message
             Text(
@@ -81,7 +81,7 @@ class LoginPage extends StatelessWidget {
               controller: _pwController,
             ),
 
-            const SizedBox(height: 25),
+            const SizedBox(height: 15),
 
             //login button
             MyButton(

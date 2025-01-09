@@ -17,10 +17,10 @@ class MyButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(15),
         ),
         padding: EdgeInsets.all(15),
-        margin: EdgeInsets.all(25),
+        margin: EdgeInsets.only(top: 20, right: 80, left: 80),
         child: Center(
           child: Text(text),
         ),
