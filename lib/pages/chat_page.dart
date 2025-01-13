@@ -1,17 +1,20 @@
+import 'dart:ui';
+
 import 'package:chatapp/components/chat_bubble.dart';
-import 'package:chatapp/components/my_textfield.dart';
 import 'package:chatapp/services/auth/auth_service.dart';
 import 'package:chatapp/services/chat/chat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:chatapp/services/notification_service.dart';
 
 class ChatPage extends StatefulWidget {
   final String senderID;
   final String recieverEmail;
   final String recieverID;
   const ChatPage(
-      {super.key, required this.senderID, required this.recieverEmail, required this.recieverID});
+      {super.key,
+      required this.senderID,
+      required this.recieverEmail,
+      required this.recieverID});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -25,7 +28,7 @@ class _ChatPageState extends State<ChatPage> {
   final ChatService _chatService = ChatService();
   final AuthService _authService = AuthService();
 
-  FocusNode _focusNode = FocusNode();
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -147,9 +150,9 @@ class _ChatPageState extends State<ChatPage> {
               isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             ChatBubble(
-              message: data["message"],
-              isCurrentUser: isCurrentUser,
-            ),
+                message: data["message"],
+                isCurrentUser: isCurrentUser,
+                date: data["timestamp"]),
           ]),
     );
   }
@@ -157,20 +160,32 @@ class _ChatPageState extends State<ChatPage> {
   //build message input
   Widget _buildMessageInput() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15, top: 10),
+      padding: const EdgeInsets.only(bottom: 5, top: 5, left: 5),
       child: Row(
         children: [
           Expanded(
-            child: MyTextField(
+            child: TextField(
               controller: _messageController,
-              obscureText: false,
-              hintText: "Birşeyler yaz...",
               focusNode: _focusNode,
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              decoration: InputDecoration(
+                fillColor: Theme.of(context).colorScheme.secondary,
+                filled: true,
+                hintText: "Birşeyler yaz...",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+              ),
             ),
           ),
           //send button
           Container(
-            margin: const EdgeInsets.only(right: 15),
+            margin: const EdgeInsets.only(right: 5, left: 5),
             decoration: BoxDecoration(
                 color: Colors.green.shade500, shape: BoxShape.circle),
             child: IconButton(

@@ -40,13 +40,10 @@ class NotificationService {
 
     // Ön planda bildirim ayarları
     await _firebaseMessaging.setForegroundNotificationPresentationOptions(
-      alert: true,
+      alert: false,
       badge: true,
       sound: true,
     );
-
-    // Ön planda mesaj dinleme
-    FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
 
     print("🔔 NOTIFICATION SERVICE: Bildirimler başlatıldı");
   }
@@ -79,9 +76,10 @@ class NotificationService {
       }
 
       // Firestore'da notifications koleksiyonuna bildirim ekle
+      String senderName2 = senderName.split("@")[0];
       await _firestore.collection('notifications').add({
         'token': receiverToken,
-        'title': '$senderName\'den yeni mesaj',
+        'title': '$senderName2\'den yeni mesaj',
         'body': message,
         'receiverId': receiverUserId,
         'senderId': senderId,
@@ -116,27 +114,5 @@ class NotificationService {
         options: DefaultFirebaseOptions.currentPlatform);
     print(
         '🔔 NOTIFICATION SERVICE: Arka planda mesaj alındı: ${message.messageId}');
-  }
-
-  // Ön plan mesajlarını işle
-  void _handleForegroundMessage(RemoteMessage message) {
-    RemoteNotification? notification = message.notification;
-    AndroidNotification? android = message.notification?.android;
-
-    if (notification != null && android != null) {
-      _flutterLocalNotificationsPlugin.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        NotificationDetails(
-          android: AndroidNotificationDetails(
-            channel.id,
-            channel.name,
-            icon: '@mipmap/ic_launcher',
-          ),
-        ),
-      );
-      print("✅ NOTIFICATION SERVICE: Bildirim gösterildi");
-    }
   }
 }
