@@ -4,12 +4,14 @@ import 'package:chatapp/services/auth/auth_service.dart';
 import 'package:chatapp/services/chat/chat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:chatapp/services/notification_service.dart';
 
 class ChatPage extends StatefulWidget {
+  final String senderID;
   final String recieverEmail;
   final String recieverID;
   const ChatPage(
-      {super.key, required this.recieverEmail, required this.recieverID});
+      {super.key, required this.senderID, required this.recieverEmail, required this.recieverID});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -56,7 +58,6 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _focusNode.dispose();
     _messageController.dispose();
     super.dispose();

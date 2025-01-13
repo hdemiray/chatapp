@@ -89,6 +89,7 @@ class HomePage extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => ChatPage(
+                senderID: _authService.getCurrentUser()!.uid,
                 recieverEmail: userData["email"],
                 recieverID: userData["uid"],
               ),

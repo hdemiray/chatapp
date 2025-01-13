@@ -1,6 +1,8 @@
 import 'package:chatapp/models/message.dart';
 import 'package:chatapp/services/auth/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chatapp/services/notification_service.dart';
 
 class ChatService {
   //instance of firestore & auth service
@@ -47,6 +49,27 @@ class ChatService {
         .add(
           newMessage.toMap(),
         );
+
+    // Bildirim gönder
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      try {
+        print("Bildirim gönderiliyor...");
+        print("Alıcı ID: $recieverID");
+        print("Gönderen: ${currentUser.email}");
+
+        await NotificationService().sendNotification(
+          receiverUserId: recieverID,
+          message: message,
+          senderName: currentUser.email ?? 'Kullanıcı',
+          senderId: currentUser.uid,
+        );
+
+        print("Bildirim gönderildi!");
+      } catch (e) {
+        print("Bildirim gönderme hatası: $e");
+      }
+    }
   }
 
   //get messages
